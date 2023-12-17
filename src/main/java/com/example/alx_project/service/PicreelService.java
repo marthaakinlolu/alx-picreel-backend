@@ -14,11 +14,6 @@ public class PicreelService {
     @Autowired
     PicreelModelRepository picreelRepository;
 
-    /*
-    public PicreelService(PicreelRepository picreelRepository) {
-        this.picreelRepository = picreelRepository;
-    }
-*/
     public PicreelModel addPics(PicreelModel requestObject){
         PicreelModel response =  picreelRepository.save(requestObject);
         return response;

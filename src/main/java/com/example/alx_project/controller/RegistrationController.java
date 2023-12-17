@@ -16,7 +16,12 @@ public class RegistrationController {
     }
 
     @PostMapping("/user")
-    public RegistrationModel addData(@RequestBody RegistrationModel request){
-        return registrationService.addData(request);
+    public String addData(@RequestBody RegistrationModel request){
+        if (!request.getPassword().equals(request.getConfirmPassword())) {
+            return "Password Mismatch";
+        }
+        RegistrationModel result = registrationService.addData(request);
+             return   "Registration Successful";
     }
+
 }
