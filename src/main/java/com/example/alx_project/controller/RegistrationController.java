@@ -17,11 +17,8 @@ public class RegistrationController {
 
     @PostMapping("/user")
     public String addData(@RequestBody RegistrationModel request) {
-        if (!request.getPassword().equals(request.getConfirmPassword())) {
-            return "Password Mismatch";
-        }
-        RegistrationModel result = registrationService.addData(request);
-        return "Registration Successful";
+
+        return registrationService.addData(request);
     }
 
     @PostMapping("/login")

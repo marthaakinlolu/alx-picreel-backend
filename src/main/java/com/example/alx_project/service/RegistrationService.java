@@ -16,8 +16,24 @@ public class RegistrationService {
         this.registrationRepository = registrationRepository;
     }
 
-    public RegistrationModel addData(RegistrationModel request) {
-        return registrationRepository.save(request);
+    public String addData(RegistrationModel request) {
+        try {
+            if (!request.getPassword().equals(request.getConfirmPassword())) {
+                return "Password Mismatch";
+            }
+            RegistrationModel resp = registrationRepository.findByEmail(request.getEmail());
+            if(resp != null){
+                return "Email already exist";
+            }
+
+            registrationRepository.save(request);
+
+            return "Registration Successful";
+        }catch (Exception ex){
+            return "Registration failed, please try again";
+
+        }
+
     }
 
     public RegistrationModel findByEmail(String email) {
