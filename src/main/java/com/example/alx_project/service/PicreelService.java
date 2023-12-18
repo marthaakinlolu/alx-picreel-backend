@@ -26,4 +26,14 @@ public class PicreelService {
     public void deletePics(long id) {
         picreelRepository.deleteById(id);
     }
+
+    public boolean updatePics(PicreelModel request){
+
+        if( ! picreelRepository.existsById(request.getId())){
+            return false;
+        }
+
+        PicreelModel update =  picreelRepository.save(request);
+        return true;
+    }
 }

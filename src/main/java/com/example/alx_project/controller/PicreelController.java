@@ -31,6 +31,17 @@ public class PicreelController {
         picreelService.deletePics(id);
     }
 
+    @PutMapping ("/updatePicreel")
+    public String updatePics(@RequestBody PicreelModel updatedPicreelModel) {
+        boolean updated = picreelService.updatePics(updatedPicreelModel);
+
+        if (updated) {
+            return "Picture updated successfully";
+        } else {
+            return "Picture not Found";
+        }
+    }
+
 }
 
 
