@@ -9,11 +9,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class RegistrationService {
 
+    private final RegistrationRepository registrationRepository;
+
     @Autowired
-    RegistrationRepository registrationRepository;
+    public RegistrationService(RegistrationRepository registrationRepository) {
+        this.registrationRepository = registrationRepository;
+    }
 
     public RegistrationModel addData(RegistrationModel request) {
-        RegistrationModel user = registrationRepository.save(request);
-        return user;
+        return registrationRepository.save(request);
+    }
+
+    public RegistrationModel findByEmail(String email) {
+        return registrationRepository.findByEmail(email);
+    }
+
+    public boolean authenticate(String email, String password) {
+        RegistrationModel user = registrationRepository.findByEmail(email);
+
+        return user != null && password.equals(user.getPassword());
     }
 }

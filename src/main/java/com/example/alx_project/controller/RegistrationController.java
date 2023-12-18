@@ -16,12 +16,24 @@ public class RegistrationController {
     }
 
     @PostMapping("/user")
-    public String addData(@RequestBody RegistrationModel request){
+    public String addData(@RequestBody RegistrationModel request) {
         if (!request.getPassword().equals(request.getConfirmPassword())) {
             return "Password Mismatch";
         }
         RegistrationModel result = registrationService.addData(request);
-             return   "Registration Successful";
+        return "Registration Successful";
     }
 
+    @PostMapping("/login")
+    public String login(@RequestBody RegistrationModel request) {
+
+        boolean isAuthenticated = registrationService.authenticate(request.getEmail(), request.getPassword());
+
+        if (isAuthenticated) {
+            return "Login Successful";
+        } else {
+            return "Invalid Credentials";
+        }
+
+    }
 }
